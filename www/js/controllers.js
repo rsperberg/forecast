@@ -1,48 +1,39 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ionic'])
+.constant('FORECASTIO_KEY', '1572eea67ce133e1a6001a8bfe03e994')
+.controller('HomeCtrl', function($scope,$state,Weather,DataStore) {
+    //read default settings into scope
+    console.log('inside home');
+    $scope.city  = DataStore.city;
+    var latitude  =  DataStore.latitude;
+    var longitude = DataStore.longitude;
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
-  // Form data for the login modal
-  $scope.loginData = {};
+    //call getCurrentWeather method in factory ‘Weather’
+    Weather.getCurrentWeather(latitude,longitude).then(function(resp) {
+      $scope.current = resp.data;
+      console.log('GOT CURRENT', $scope.current);
+      //debugger;
+    }, function(error) {
+      alert('Unable to get current conditions');
+      console.error(error);
+    });
 
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
 })
+.controller('LocationsCtrl', function($scope,$state, Cities,DataStore) {
+  $scope.cities = Cities.all();
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+  $scope.changeCity = function(cityId) {
+    //get lat and longitude for seleted location
+    var lat  = $scope.cities[cityId].lat; //latitude
+    var lgn  = $scope.cities[cityId].lgn; //longitude
+    var city = $scope.cities[cityId].name; //city name
+
+    DataStore.setCity(city);
+    DataStore.setLatitude(lat);
+    DataStore.setLongitude(lgn);
+
+    $state.go('tab.home');
+  }
 })
-
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('SettingsCtrl', function($scope) {
+    //manages app settings
 });
