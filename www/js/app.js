@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -22,51 +22,40 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
-
-    .state('app', {
-      url: "/app",
+// setup an abstract state for the tabs directive
+    .state('tab', {
+      url: '/tab',
       abstract: true,
-      templateUrl: "templates/menu.html",
-      controller: 'AppCtrl'
+      templateUrl: 'templates/tabs.html'
     })
-
-    .state('app.search', {
-      url: "/search",
+ // Each tab has its own nav history stack:
+    .state('tab.home', {
+      url: '/home',
       views: {
-        'menuContent' :{
-          templateUrl: "templates/search.html"
+        'tab-home': {
+          templateUrl: 'templates/tab-home.html',
+          controller: 'HomeCtrl'
         }
       }
     })
-
-    .state('app.browse', {
-      url: "/browse",
+    .state('tab.changecity', {
+      url: '/city',
       views: {
-        'menuContent' :{
-          templateUrl: "templates/browse.html"
+        'tab-cities': {
+          templateUrl: 'templates/tab-cities.html',
+          controller: 'LocationsCtrl'
         }
       }
     })
-    .state('app.playlists', {
-      url: "/playlists",
+    .state('tab.settings', {
+      url: '/settings',
       views: {
-        'menuContent' :{
-          templateUrl: "templates/playlists.html",
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
-
-    .state('app.single', {
-      url: "/playlists/:playlistId",
-      views: {
-        'menuContent' :{
-          templateUrl: "templates/playlist.html",
-          controller: 'PlaylistCtrl'
+        'tab-settings': {
+          templateUrl: 'templates/tab-settings.html',
+          controller: 'SettingsCtrl'
         }
       }
     });
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+// if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/tab/home');
 });
-
