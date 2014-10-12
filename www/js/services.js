@@ -54,7 +54,7 @@ factory('DataStore', function() {
     };
 
     DataStore.setLatitude = function (value) {
-       DataStore.latitude = value;
+       DataStore.longitude = value;
     };
 
     DataStore.setLongitude = function (value) {

@@ -3,7 +3,7 @@
       <h1>Select city</h1>
         <ion-list>
               <ion-item ng-repeat="city in cities">
-              <span href="#" ng-click="changeCity('{{city.id}}')">
+              <span ng-href="#" ng-click="changeCity('{{city.id}}')">
                 {{city.name}}
               </span>
               </ion-item>
