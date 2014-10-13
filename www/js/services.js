@@ -23,13 +23,13 @@ var forecastioWeather = ['$q', '$resource', '$http', 'FORECASTIO_KEY',
 angular.module('starter.services', ['ngResource'])
 .factory('Cities', function() {
 var cities = [
-    { id: 0, name: 'Miami', lat:25.7877 , lgn: 80.2241 },
-    { id: 1, name: 'New York City' ,lat: 40.7127 , lgn: 74.0059 },
+    { id: 0, name: 'Marietta, GA', lat:33.9592 , lgn: 84.4552},
+    { id: 1, name: 'Montclair, NJ' ,lat: 40.8332, lgn: 74.1996 },
     { id: 2, name: 'London' ,lat:51.5072 , lgn: 1.1275 },
-    { id: 3, name: 'Los Angeles' ,lat: 34.0500 , lgn: 118.2500 },
-    { id: 4, name: 'Dallas' ,lat: 32.7758 , lgn:96.7967  },
-    { id: 5, name: 'Frankfurt' ,lat:50.1117 , lgn: 8.6858 },
-    { id: 6, name: 'New Delhi' ,lat:28.6100 , lgn: 77.2300 }
+    { id: 3, name: 'Los Angeles' ,lat: 33.8798 , lgn: 118.3912 },
+    { id: 4, name: 'El Paso' ,lat: 31.8287 , lgn:106.5459  },
+    { id: 5, name: 'Espanola, NJ' ,lat:35.9628 , lgn: 106.0637 },
+    { id: 6, name: 'Phnom Penh' ,lat:11.9794 , lgn: 104.8787 }
   ];
 
   return {
@@ -45,9 +45,9 @@ var cities = [
 factory('DataStore', function() {
     //create datastore with default values
     var DataStore = {
-        city:       'Miami',
-        latitude:   25.7877,
-        longitude:  80.2241 };
+        city:       'Montclair',
+        latitude:   40.8332,
+        longitude:  74.1996 };
 
     DataStore.setCity = function (value) {
        DataStore.city = value;
